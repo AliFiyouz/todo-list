@@ -1,0 +1,140 @@
+*{
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+
+}
+body{
+    background-color: #dee4ee;
+    /* background-image: url(20781338-cork-board-yellow-background-writing-that-post-.webp); */
+    background-attachment: fixed;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.week{
+    display:flex;
+    position: relative;
+}
+
+.week input{
+display: flex;
+position: relative;
+float: left;
+}
+
+.week:hover{
+    background-color: #999;
+}
+
+.week:hover::after{
+    background-color: aquamarine;
+    transform: scaleY(1000vh);
+}
+
+.week:hover::before{
+    background-color: #ae8253;
+    transform: scaleX(100vh);
+
+}
+
+ul{
+    display:inline-block;
+    position: relative;
+    transform: skewY(-15deg);
+}
+
+ul li{
+    position: relative;
+    list-style: none;
+    width: 120px;
+    background:  #ffe6cc;
+    padding: 15px;
+    transition: 0.5s;
+    z-index: calc(1 * var(--i));
+}
+
+ul li:hover{
+    transform: translateX(-50px);
+    background: var(--clr);
+}
+
+ul li::before{
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -40px;
+    width: 40px;
+    height: 100%;
+    background: #ffe6cc;
+    filter: brightness(0.7);
+    transform-origin: right;
+    transform: skewY(45deg);
+    transition: 0.5s;
+}
+
+ul li:hover::before{
+    background: var(--clr);
+    filter: brightness(0.7);
+}
+ul li::after{
+    content: '';
+    position: absolute;
+    top: -40px;
+    left: 0;
+    width: 100%;
+    height: 40px;
+    background:#ae8253 ;
+    filter: brightness(0.9);
+    transform-origin: bottom;
+    transform: skewX(45deg);
+    transition: 0.5s;
+}
+
+ul li:hover::after{
+    background: var(--clr);
+    filter: brightness(0.9);
+}
+
+ul li a{
+    text-decoration: none;
+    color: #999;
+    display: block;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    transition: 0.5s;
+    
+}
+
+ul li:hover a{
+    color: #ae8253;
+}
+
+ul li:last-child::after{
+    box-shadow: -120px 120px 20px rgba(0,0,0,25);
+}
+
+ul li span{
+    position:absolute ;
+    top: 0;
+    left: -40px;
+    width: 40px;
+    height: 100%;
+    filter: brightness(0.7);
+    transform-origin: right;
+    transform: skewY(45deg);
+    transition: 0.5s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0.5;
+    font-size: 1.25em;
+}
+
+ul li:hover span{
+    opacity: 1;
+}
