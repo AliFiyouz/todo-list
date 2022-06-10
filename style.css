@@ -19,6 +19,11 @@ body{
 .week{
     display:flex;
     position: relative;
+    margin: auto;
+    width: 80%;
+    border: 10px solid #fff;
+    border-top-right-radius: 10px;
+    border-bottom-left-radius: 20px;
 }
 
 .week input{
