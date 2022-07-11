@@ -1,47 +1,47 @@
-// let  saturday = document.querySelector(".saturday");
-// let input = document.createElement("input");
-// let check = document.createElement("input");
-// let set = check.setAtterbiut("type","check-box");
-// saturday.appendChild(check);
-// saturday.appendChild(input);
-let week = document.querySelector(".week");
-let MainDiv = document.createElement("div");
-input = document.createElement("input")
-input.setAttribute("type" , "text");
-input.setAttribute("id" , "name");
-input.setAttribute("placeholder", " Set Your items . . . ");
-week.appendChild(MainDiv);
-MainDiv.appendChild(input);
+let InsertForm = document.querySelector("#form");
+let noteList = document.querySelector("#note-list");
 
-let paragraf = document.createElement("p");
-paragraf.setAttribute("id" , "p");
-week.appendChild(paragraf);
 
-let submit = document.createElement("input");
-submit.setAttribute("value" , "Submit!")
-submit.setAttribute("type" , "submit");
-submit.setAttribute("id" , "submit");
-MainDiv.appendChild(submit); 
+// Event Lisetener
+InsertForm.addEventListener("submit" , newNote);
 
-document.addEventListener("click" , "submitItem")
 
-function submitItem(params) {
-    let item = document.getElementById("name").value;
-    document.getElementById("p").innerHTML = item
+
+// adding Event Listener to the list 
+function newNote(e){
+    //to do nothing when submit clicked
+    e.preventDefault();
+    let noteValue = document.querySelector("#note").value;
+    //creat li 
+    let newLi = document.createElement("li");
+    noteList.appendChild(newLi);
+    // change content to text mode
+    newLi.appendChild(document.createTextNode(noteValue));
+    
+    // creat remove btn
+    const removeBtn = document.createElement("span");
+    // content removeBtn = x
+    removeBtn.textContent = "X";
+    //add a class list for removebtn
+    removeBtn.classList.add("remove-btn");
+    // appendChild
+    newLi.appendChild(removeBtn);
+    console.log(newLi);
 }
-let submittedN// add event listener to submit name
-document.querySelector("#form").addEventListener("submit", submitName);
-// add variable to get submitted nameame;
-//add event listener to get name change
-document.querySelector("#name").addEventListener("change", user);
-// Get submitted name when name input changes
-function user(event) {
-  console.log(event.target.value);
-  submittedName = event.target.value;
-  localStorage.setItem("name", submittedName);
+
+function saveNoteLocalStorage(){
+    let fruits = ["apple" , "banana"];
 }
-// when form is submitted change display
-function submitName(e) {
-  e.preventDefault();
-  document.getElementById("formContainer").style.display = "none";
-  document.querySelector(".container1").style.display = "flex";}
+let x = [01, 02, "ali", "proPlayer"];
+
+localStorage.setItem("item" , JSON.stringify(x))
+
+
+
+console.log(JSON.parse(localStorage.getItem("item")));
+
+
+
+let person = {name:'John', age:31, city:"New York"};
+
+person.name = "Gilbert";

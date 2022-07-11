@@ -5,6 +5,13 @@
     box-sizing: border-box;
 
 }
+
+.remove-btn{
+    cursor: pointer;
+    color: red;
+    float:left ;
+}
+
 body{
     background-color: #dee4ee;
     /* background-image: url(20781338-cork-board-yellow-background-writing-that-post-.webp); */
@@ -16,36 +23,7 @@ body{
     min-height: 100vh;
 }
 
-.week{
-    display:flex;
-    position: relative;
-    margin: auto;
-    width: 80%;
-    border: 10px solid #fff;
-    border-top-right-radius: 10px;
-    border-bottom-left-radius: 20px;
-}
 
-.week input{
-display: flex;
-position: relative;
-float: left;
-}
-
-.week:hover{
-    background-color: #999;
-}
-
-.week:hover::after{
-    background-color: aquamarine;
-    transform: scaleY(1000vh);
-}
-
-.week:hover::before{
-    background-color: #ae8253;
-    transform: scaleX(100vh);
-
-}
 
 ul{
     display:inline-block;
