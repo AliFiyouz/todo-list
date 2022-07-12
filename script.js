@@ -45,3 +45,8 @@ console.log(JSON.parse(localStorage.getItem("item")));
 let person = {name:'John', age:31, city:"New York"};
 
 person.name = "Gilbert";
+
+function removeBTN(){
+let rmv = document.querySelector(".remove-btn")
+
+}
