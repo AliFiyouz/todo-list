@@ -13,18 +13,19 @@
     <div id="content">
       <div class="container">
         <header class="app-head">
-          <h1>📒 دفترچه یادداشت</h1>
+          <h1 id="section-title">📒 یادداشت‌ها</h1>
           <p class="subtitle">ذخیره‌ی خودکار در حافظه‌ی مرورگر</p>
         </header>
 
+        <!-- انتخاب بخش (تب‌های افقی برای موبایل و دسکتاپ) -->
+        <nav class="sections" id="sections"></nav>
+
         <div class="card">
-          <!-- فرم افزودن -->
           <form id="form" class="add-form" autocomplete="off">
-            <input type="text" id="note" placeholder="یادداشت جدید بنویس و Enter بزن..." />
+            <input type="text" id="note" placeholder="یادداشت جدید بنویس..." />
             <button type="submit" id="add-btn"><i class="fa-solid fa-plus"></i> افزودن</button>
           </form>
 
-          <!-- نوار ابزار: شمارنده + فیلترها -->
           <div class="toolbar">
             <span id="counter" class="counter">۰ یادداشت</span>
             <div class="filters">
@@ -35,21 +36,20 @@
             <button id="clear-done" class="clear-btn">پاک‌کردن انجام‌شده‌ها</button>
           </div>
 
-          <!-- لیست یادداشت‌ها -->
           <ul id="note-list" class="note-list"></ul>
-          <p id="empty-state" class="empty-state">هنوز یادداشتی نداری. اولین یادداشتت را بنویس! ✍️</p>
+          <p id="empty-state" class="empty-state">هنوز موردی نداری. اولین مورد را بنویس! ✍️</p>
         </div>
       </div>
     </div>
 
-    <!-- منوی سه‌بعدی تزئینی -->
-    <ul class="side-menu">
+    <!-- منوی سه‌بعدی تزئینی (روی دسکتاپ) — انتخابی -->
+    <ul class="side-menu" id="side-menu">
       <li style="--i:6;--clr:#ffbf80"><a href="Goal-Of-Week/index.html"><span><i class="fa-solid fa-bullseye"></i></span>Goal Of Week</a></li>
-      <li style="--i:5;--clr:#ffb366"><a href="#"><span><i class="fa-solid fa-list-check"></i></span>Main Task</a></li>
-      <li style="--i:4;--clr:#ffa64d"><a href="#"><span><i class="fa-solid fa-repeat"></i></span>Habit Control</a></li>
-      <li style="--i:3;--clr:#ff9933"><a href="#"><span><i class="fa-solid fa-star"></i></span>Important</a></li>
-      <li style="--i:2;--clr:#ff8c1a"><a href="#"><span><i class="fa-solid fa-face-smile"></i></span>Joy Of Week</a></li>
-      <li style="--i:1;--clr:#ff8000"><a href="#"><span><i class="fa-solid fa-arrow-trend-up"></i></span>How To Improve?</a></li>
+      <li style="--i:5;--clr:#ffb366"><a href="#" data-section="main"><span><i class="fa-solid fa-list-check"></i></span>Main Task</a></li>
+      <li style="--i:4;--clr:#ffa64d"><a href="#" data-section="habit"><span><i class="fa-solid fa-repeat"></i></span>Habit Control</a></li>
+      <li style="--i:3;--clr:#ff9933"><a href="#" data-section="important"><span><i class="fa-solid fa-star"></i></span>Important</a></li>
+      <li style="--i:2;--clr:#ff8c1a"><a href="#" data-section="joy"><span><i class="fa-solid fa-face-smile"></i></span>Joy Of Week</a></li>
+      <li style="--i:1;--clr:#ff8000"><a href="#" data-section="improve"><span><i class="fa-solid fa-arrow-trend-up"></i></span>How To Improve?</a></li>
     </ul>
 
     <script src="script.js"></script>

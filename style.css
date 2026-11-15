@@ -205,3 +205,33 @@ body {
   opacity: 0.5; font-size: 1.1em;
 }
 .side-menu li:hover span { opacity: 1; }
+
+/* ===== تب‌های انتخاب بخش ===== */
+.sections {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+  margin-bottom: 16px;
+}
+.section-tab {
+  border: none;
+  background: #fff;
+  color: #5a678f;
+  padding: 8px 14px;
+  border-radius: 22px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 600;
+  box-shadow: 0 4px 14px rgba(44, 53, 80, 0.08);
+  transition: all 0.15s;
+}
+.section-tab:hover { background: #eef3ff; }
+.section-tab.active { background: #6c8cff; color: #fff; }
+
+/* حالت فعال منوی سه‌بعدی کناری */
+.side-menu li.active { transform: translateX(-46px); background: var(--clr); }
+.side-menu li.active::before { background: var(--clr); }
+.side-menu li.active::after { background: var(--clr); }
+.side-menu li.active a { color: #ae8253; }
+.side-menu li.active span { opacity: 1; }
