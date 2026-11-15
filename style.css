@@ -1,3 +1,25 @@
+/* ===================================================================
+   پالت گرم یکپارچه — هماهنگ با منوی سه‌بعدی نارنجی
+   =================================================================== */
+:root {
+  --bg1: #fdf4e8;
+  --bg2: #f5e6ce;
+  --card: #fffdf8;
+  --soft: #fbf3e8;          /* پس‌زمینه‌ی ورودی‌ها و آیتم‌ها */
+  --soft-hover: #fcecd9;
+  --line: #efe1cd;
+  --ink: #4e3d2a;           /* متن اصلی/عناوین (قهوه‌ای گرم) */
+  --muted: #a3917a;         /* متن کم‌رنگ */
+  --accent: #ff8c42;
+  --accent-strong: #f5751f;
+  --accent-grad: linear-gradient(135deg, #ffab57, #ff7a24);
+  --accent-soft: #fff1e2;
+  --done: #5bb389;          /* سبزِ انجام‌شده */
+  --danger: #e36a4f;
+  --shadow: 0 18px 46px rgba(120, 78, 24, 0.16);
+  --shadow-sm: 0 4px 14px rgba(120, 78, 24, 0.10);
+}
+
 * {
   font-family: 'Vazirmatn', -apple-system, BlinkMacSystemFont, 'Segoe UI', Tahoma, sans-serif;
   margin: 0;
@@ -6,28 +28,37 @@
 }
 
 body {
-  background: linear-gradient(160deg, #e7edf7 0%, #d4def0 100%);
+  background: linear-gradient(160deg, var(--bg1) 0%, var(--bg2) 100%);
+  background-attachment: fixed;
   min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  padding: 40px 16px;
-  color: #2c3550;
+  padding: 44px 16px;
+  color: var(--ink);
 }
 
 #content { width: 100%; max-width: 560px; }
 
 /* ===== سربرگ ===== */
-.app-head { text-align: center; margin-bottom: 22px; }
-.app-head h1 { font-size: 28px; color: #2c3550; }
-.subtitle { color: #7985a3; margin-top: 6px; font-size: 14px; }
+.app-head { text-align: center; margin-bottom: 24px; }
+.app-head h1 {
+  font-size: 30px;
+  font-weight: 800;
+  background: linear-gradient(120deg, #ff7a24, #e4913b);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.subtitle { color: var(--muted); margin-top: 7px; font-size: 14px; }
 
 /* ===== کارت اصلی ===== */
 .card {
-  background: #fff;
-  border-radius: 18px;
-  padding: 22px;
-  box-shadow: 0 18px 50px rgba(44, 53, 80, 0.14);
+  background: var(--card);
+  border-radius: 22px;
+  padding: 24px;
+  box-shadow: var(--shadow);
+  border: 1px solid #f6ecdc;
 }
 
 /* ===== فرم افزودن ===== */
@@ -36,26 +67,35 @@ body {
   flex: 1;
   padding: 14px 16px;
   font-size: 15px;
-  border: 2px solid #e3e8f2;
-  border-radius: 12px;
+  border: 2px solid var(--line);
+  border-radius: 14px;
   outline: none;
-  transition: border-color 0.2s;
-  background: #f8faff;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  background: var(--soft);
+  color: var(--ink);
 }
-.add-form input:focus { border-color: #6c8cff; }
+.add-form input::placeholder { color: #bca98f; }
+.add-form input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 4px rgba(255, 140, 66, 0.14);
+}
+.add-form button,
 #add-btn {
-  padding: 0 20px;
+  padding: 0 22px;
   font-size: 15px;
-  font-weight: 600;
+  font-weight: 700;
   color: #fff;
-  background: #6c8cff;
+  background: var(--accent-grad);
   border: none;
-  border-radius: 12px;
+  border-radius: 14px;
   cursor: pointer;
   white-space: nowrap;
-  transition: background 0.2s, transform 0.1s;
+  box-shadow: 0 8px 18px rgba(255, 122, 36, 0.28);
+  transition: filter 0.2s, transform 0.1s;
 }
-#add-btn:hover { background: #5577f5; }
+.add-form button:hover,
+#add-btn:hover { filter: brightness(1.05); }
+.add-form button:active,
 #add-btn:active { transform: scale(0.97); }
 
 /* ===== نوار ابزار ===== */
@@ -64,104 +104,141 @@ body {
   align-items: center;
   flex-wrap: wrap;
   gap: 10px;
-  margin: 18px 2px 10px;
+  margin: 18px 2px 12px;
   font-size: 13px;
 }
-.counter { color: #7985a3; font-weight: 600; }
+.counter { color: var(--muted); font-weight: 700; }
 .filters { display: flex; gap: 4px; margin-inline-start: auto; }
 .filter {
   border: none;
-  background: #eef2fb;
-  color: #5a678f;
-  padding: 6px 12px;
+  background: var(--accent-soft);
+  color: #b9805a;
+  padding: 7px 13px;
   border-radius: 20px;
   cursor: pointer;
   font-size: 13px;
+  font-weight: 600;
   transition: all 0.15s;
 }
-.filter:hover { background: #e0e7f7; }
-.filter.active { background: #6c8cff; color: #fff; }
+.filter:hover { background: #ffe6cc; }
+.filter.active { background: var(--accent-grad); color: #fff; }
 .clear-btn {
   border: none;
   background: transparent;
-  color: #d06060;
+  color: var(--danger);
   cursor: pointer;
   font-size: 13px;
+  font-weight: 600;
 }
-.clear-btn:disabled { color: #c3cadb; cursor: default; }
+.clear-btn:disabled { color: #d7c6ae; cursor: default; }
 
 /* ===== لیست یادداشت‌ها ===== */
-.note-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+.note-list { list-style: none; display: flex; flex-direction: column; gap: 9px; }
 
 .note-item {
   display: flex;
   align-items: center;
-  gap: 10px;
-  padding: 12px 14px;
-  background: #f8faff;
-  border: 1px solid #eef2fb;
-  border-radius: 12px;
-  transition: background 0.15s, opacity 0.15s;
+  gap: 11px;
+  padding: 13px 15px;
+  background: var(--soft);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  transition: background 0.15s, transform 0.1s, box-shadow 0.15s;
 }
-.note-item:hover { background: #eef3ff; }
+.note-item:hover {
+  background: var(--soft-hover);
+  box-shadow: var(--shadow-sm);
+}
 
 .check {
   border: none;
   background: none;
   cursor: pointer;
-  font-size: 20px;
-  color: #b7c0d8;
+  font-size: 21px;
+  color: #d8c3a6;
   line-height: 1;
+  transition: color 0.15s, transform 0.1s;
 }
-.note-item.done .check { color: #43c08a; }
+.check:active { transform: scale(0.9); }
+.note-item.done .check { color: var(--done); }
 
 .note-body { flex: 1; display: flex; flex-direction: column; min-width: 0; }
 .note-text { word-break: break-word; }
-.note-time { color: #9aa3bd; font-size: 11px; margin-top: 3px; }
+.note-time { color: #b7a589; font-size: 11px; margin-top: 3px; }
 
 .note-item.done .note-text {
   text-decoration: line-through;
-  color: #a7afc6;
+  color: #c3b298;
 }
 
 .edit-input {
   width: 100%;
-  padding: 6px 8px;
-  border: 2px solid #6c8cff;
-  border-radius: 8px;
+  padding: 7px 10px;
+  border: 2px solid var(--accent);
+  border-radius: 10px;
   outline: none;
   font-size: 15px;
+  background: #fff;
+  color: var(--ink);
 }
 
 .icon-btn {
   border: none;
   background: none;
   cursor: pointer;
-  color: #aab3cc;
+  color: #c6b393;
   font-size: 15px;
-  padding: 6px;
-  border-radius: 8px;
+  padding: 7px;
+  border-radius: 9px;
   transition: color 0.15s, background 0.15s;
 }
-.icon-btn:hover { background: #e7ecf8; }
-.icon-btn.edit:hover { color: #6c8cff; }
-.icon-btn.remove-btn:hover { color: #e35b5b; }
+.icon-btn:hover { background: #f5e7d2; }
+.icon-btn.edit:hover { color: var(--accent-strong); }
+.icon-btn.remove-btn:hover { color: var(--danger); }
 
 .empty-state {
   text-align: center;
-  color: #9aa3bd;
-  padding: 24px 10px;
+  color: var(--muted);
+  padding: 26px 10px;
   font-size: 14px;
+}
+
+/* ===== تب‌های انتخاب بخش ===== */
+.sections {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+  margin-bottom: 18px;
+}
+.section-tab {
+  border: none;
+  background: var(--card);
+  color: #a07a52;
+  padding: 9px 15px;
+  border-radius: 22px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 700;
+  box-shadow: var(--shadow-sm);
+  transition: all 0.15s;
+}
+.section-tab:hover { background: var(--accent-soft); transform: translateY(-1px); }
+.section-tab.active {
+  background: var(--accent-grad);
+  color: #fff;
+  box-shadow: 0 8px 18px rgba(255, 122, 36, 0.3);
 }
 
 /* ===== منوی سه‌بعدی تزئینی (گوشه‌ی صفحه) ===== */
 .side-menu {
-  display: none;               /* روی موبایل مخفی */
+  display: none;
   position: fixed;
   top: 50%;
   left: 60px;
   transform: translateY(-50%) skewY(-15deg);
   list-style: none;
+  filter: drop-shadow(0 20px 30px rgba(120, 78, 24, 0.22));
 }
 @media (min-width: 1100px) { .side-menu { display: inline-block; } }
 
@@ -174,7 +251,8 @@ body {
   z-index: calc(1 * var(--i));
   direction: ltr;
 }
-.side-menu li:hover { transform: translateX(-46px); background: var(--clr); }
+.side-menu li a { cursor: pointer; }
+.side-menu li:hover, .side-menu li.active { transform: translateX(-46px); background: var(--clr); }
 .side-menu li::before {
   content: '';
   position: absolute; top: 0; left: -40px;
@@ -182,7 +260,7 @@ body {
   background: #ffe6cc; filter: brightness(0.7);
   transform-origin: right; transform: skewY(45deg); transition: 0.5s;
 }
-.side-menu li:hover::before { background: var(--clr); }
+.side-menu li:hover::before, .side-menu li.active::before { background: var(--clr); filter: brightness(0.7); }
 .side-menu li::after {
   content: '';
   position: absolute; top: -40px; left: 0;
@@ -190,109 +268,79 @@ body {
   background: #ae8253; filter: brightness(0.9);
   transform-origin: bottom; transform: skewX(45deg); transition: 0.5s;
 }
-.side-menu li:hover::after { background: var(--clr); }
+.side-menu li:hover::after, .side-menu li.active::after { background: var(--clr); filter: brightness(0.9); }
 .side-menu li a {
-  text-decoration: none; color: #999; display: block;
+  text-decoration: none; color: #b08d5f; display: block;
   text-transform: uppercase; letter-spacing: 0.05em; transition: 0.5s;
+  font-size: 13px;
 }
-.side-menu li:hover a { color: #ae8253; }
+.side-menu li:hover a, .side-menu li.active a { color: #7a5a2e; }
 .side-menu li span {
   position: absolute; top: 0; left: -40px;
   width: 40px; height: 100%;
   filter: brightness(0.7);
   transform-origin: right; transform: skewY(45deg); transition: 0.5s;
   display: flex; justify-content: center; align-items: center;
-  opacity: 0.5; font-size: 1.1em;
+  opacity: 0.5; font-size: 1.1em; color: #7a5a2e;
 }
-.side-menu li:hover span { opacity: 1; }
+.side-menu li:hover span, .side-menu li.active span { opacity: 1; }
 
-/* ===== تب‌های انتخاب بخش ===== */
-.sections {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  justify-content: center;
-  margin-bottom: 16px;
-}
-.section-tab {
-  border: none;
-  background: #fff;
-  color: #5a678f;
-  padding: 8px 14px;
-  border-radius: 22px;
-  cursor: pointer;
-  font-size: 13px;
-  font-weight: 600;
-  box-shadow: 0 4px 14px rgba(44, 53, 80, 0.08);
-  transition: all 0.15s;
-}
-.section-tab:hover { background: #eef3ff; }
-.section-tab.active { background: #6c8cff; color: #fff; }
-
-/* حالت فعال منوی سه‌بعدی کناری */
-.side-menu li.active { transform: translateX(-46px); background: var(--clr); }
-.side-menu li.active::before { background: var(--clr); }
-.side-menu li.active::after { background: var(--clr); }
-.side-menu li.active a { color: #ae8253; }
-.side-menu li.active span { opacity: 1; }
-
-/* ===== جدول تقویم عادت ===== */
+/* ===== ناوبری هفته ===== */
 .week-nav {
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 10px;
-  margin-bottom: 16px;
+  margin-bottom: 18px;
 }
 .week-btn {
-  width: 36px; height: 36px;
-  border: none; border-radius: 10px;
-  background: #eef2fb; color: #5a678f;
+  width: 38px; height: 38px;
+  border: none; border-radius: 12px;
+  background: var(--accent-soft); color: var(--accent-strong);
   cursor: pointer; font-size: 14px;
   transition: background 0.15s;
 }
-.week-btn:hover { background: #e0e7f7; }
-.week-label { font-weight: 700; font-size: 15px; min-width: 150px; text-align: center; }
+.week-btn:hover { background: #ffe0c2; }
+.week-label { font-weight: 800; font-size: 15px; min-width: 150px; text-align: center; color: var(--ink); }
 .week-today {
-  border: none; background: transparent; color: #6c8cff;
-  cursor: pointer; font-size: 13px; font-weight: 600;
+  border: none; background: transparent; color: var(--accent-strong);
+  cursor: pointer; font-size: 13px; font-weight: 700;
 }
 .week-today:hover { text-decoration: underline; }
 
+/* ===== جدول تقویم عادت ===== */
 .table-wrap { overflow-x: auto; margin-top: 16px; }
 .habit-table { width: 100%; border-collapse: collapse; min-width: 420px; }
-.habit-table th, .habit-table td {
-  text-align: center; padding: 10px 4px;
-}
-.habit-table thead th { font-size: 12px; color: #7985a3; font-weight: 600; }
+.habit-table th, .habit-table td { text-align: center; padding: 11px 4px; }
+.habit-table thead th { font-size: 12px; color: var(--muted); font-weight: 700; }
 .habit-table .habit-name-col { text-align: right; min-width: 110px; }
 .day-col .dow { display: block; }
-.day-col .dom { display: block; font-size: 11px; color: #aab3cc; margin-top: 2px; }
-.day-col.today .dow, .day-col.today .dom { color: #6c8cff; font-weight: 700; }
+.day-col .dom { display: block; font-size: 11px; color: #c0ad90; margin-top: 2px; }
+.day-col.today .dow, .day-col.today .dom { color: var(--accent-strong); font-weight: 800; }
 .count-col { font-size: 14px; }
 
-.habit-table tbody tr { border-top: 1px solid #eef2fb; }
+.habit-table tbody tr { border-top: 1px solid var(--line); }
 .habit-name {
-  text-align: right; font-size: 14px;
+  text-align: right; font-size: 14px; font-weight: 600;
   display: flex; align-items: center; gap: 6px;
 }
 .habit-del {
   border: none; background: none; cursor: pointer;
-  color: #c3cadb; font-size: 12px; padding: 4px;
+  color: #d7c6ae; font-size: 12px; padding: 4px;
   border-radius: 6px; transition: color 0.15s;
 }
-.habit-del:hover { color: #e35b5b; }
+.habit-del:hover { color: var(--danger); }
 
-.day-cell.today { background: #f3f6ff; }
+.day-cell.today { background: var(--accent-soft); }
 .day-dot {
-  width: 30px; height: 30px;
-  border: 2px solid #e3e8f2; border-radius: 50%;
+  width: 32px; height: 32px;
+  border: 2px solid var(--line); border-radius: 50%;
   background: #fff; cursor: pointer;
   color: #fff; font-size: 12px;
   display: inline-flex; align-items: center; justify-content: center;
   transition: all 0.15s;
 }
-.day-dot:hover { border-color: #6c8cff; }
-.day-dot.on { background: #43c08a; border-color: #43c08a; }
+.day-dot:hover { border-color: var(--accent); transform: scale(1.08); }
+.day-dot.on { background: var(--done); border-color: var(--done); }
 
-.habit-count { font-weight: 700; color: #6c8cff; font-size: 13px; }
+.habit-count { font-weight: 800; color: var(--accent-strong); font-size: 13px; }
