@@ -21,23 +21,46 @@
         <nav class="sections" id="sections"></nav>
 
         <div class="card">
-          <form id="form" class="add-form" autocomplete="off">
-            <input type="text" id="note" placeholder="یادداشت جدید بنویس..." />
-            <button type="submit" id="add-btn"><i class="fa-solid fa-plus"></i> افزودن</button>
-          </form>
+          <!-- نمای لیست (برای همه‌ی بخش‌ها به‌جز عادت) -->
+          <div id="list-view">
+            <form id="form" class="add-form" autocomplete="off">
+              <input type="text" id="note" placeholder="یادداشت جدید بنویس..." />
+              <button type="submit" id="add-btn"><i class="fa-solid fa-plus"></i> افزودن</button>
+            </form>
 
-          <div class="toolbar">
-            <span id="counter" class="counter">۰ یادداشت</span>
-            <div class="filters">
-              <button class="filter active" data-filter="all">همه</button>
-              <button class="filter" data-filter="active">فعال</button>
-              <button class="filter" data-filter="done">انجام‌شده</button>
+            <div class="toolbar">
+              <span id="counter" class="counter">۰ یادداشت</span>
+              <div class="filters">
+                <button class="filter active" data-filter="all">همه</button>
+                <button class="filter" data-filter="active">فعال</button>
+                <button class="filter" data-filter="done">انجام‌شده</button>
+              </div>
+              <button id="clear-done" class="clear-btn">پاک‌کردن انجام‌شده‌ها</button>
             </div>
-            <button id="clear-done" class="clear-btn">پاک‌کردن انجام‌شده‌ها</button>
+
+            <ul id="note-list" class="note-list"></ul>
+            <p id="empty-state" class="empty-state">هنوز موردی نداری. اولین مورد را بنویس! ✍️</p>
           </div>
 
-          <ul id="note-list" class="note-list"></ul>
-          <p id="empty-state" class="empty-state">هنوز موردی نداری. اولین مورد را بنویس! ✍️</p>
+          <!-- نمای جدول تقویم عادت (فقط بخش «کنترل عادت») -->
+          <div id="habit-view" style="display:none">
+            <div class="week-nav">
+              <button id="prev-week" class="week-btn"><i class="fa-solid fa-chevron-right"></i></button>
+              <span id="week-label" class="week-label"></span>
+              <button id="next-week" class="week-btn"><i class="fa-solid fa-chevron-left"></i></button>
+              <button id="this-week" class="week-today">این هفته</button>
+            </div>
+
+            <form id="habit-form" class="add-form" autocomplete="off">
+              <input type="text" id="habit-input" placeholder="یک عادت جدید بنویس (مثلاً: ورزش صبحگاهی)..." />
+              <button type="submit"><i class="fa-solid fa-plus"></i> افزودن عادت</button>
+            </form>
+
+            <div class="table-wrap">
+              <table id="habit-table" class="habit-table"></table>
+            </div>
+            <p id="habit-empty" class="empty-state">هنوز عادتی ثبت نکرده‌ای. اولین عادت را بنویس! 🌱</p>
+          </div>
         </div>
       </div>
     </div>

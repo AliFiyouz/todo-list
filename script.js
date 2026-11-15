@@ -139,14 +139,28 @@ function render() {
 }
 
 // --- تعویض بخش ---
+const listView = document.querySelector("#list-view");
+const habitView = document.querySelector("#habit-view");
+
 function switchSection(key) {
   if (!SECTIONS[key]) return;
   current = key;
   localStorage.setItem("activeSection", key);
   sectionTitle.textContent = SECTIONS[key].title;
-  input.placeholder = SECTIONS[key].placeholder;
-  load();
-  render();
+
+  if (key === "habit") {
+    // نمای جدول تقویم عادت
+    listView.style.display = "none";
+    habitView.style.display = "block";
+    renderHabits();
+  } else {
+    // نمای لیست معمولی
+    habitView.style.display = "none";
+    listView.style.display = "block";
+    input.placeholder = SECTIONS[key].placeholder;
+    load();
+    render();
+  }
   updateSectionUI();
 }
 
@@ -183,6 +197,174 @@ form.addEventListener("submit", (e) => {
   if (!v) return;
   addItem(v); input.value = ""; input.focus();
 });
+
+// ============================================================
+//  ماژول عادت — جدول تقویم هفتگی
+// ============================================================
+const HABITS_KEY = "habits";
+const habitForm = document.querySelector("#habit-form");
+const habitInput = document.querySelector("#habit-input");
+const habitTable = document.querySelector("#habit-table");
+const habitEmpty = document.querySelector("#habit-empty");
+const weekLabel = document.querySelector("#week-label");
+
+let habits = loadHabits();
+let weekOffset = 0; // 0 = هفته‌ی جاری، -1 = هفته‌ی قبل، ...
+
+// روزهای هفته (فارسی، از شنبه)
+const WEEK_DAYS = ["شنبه", "یکشنبه", "دوشنبه", "سه‌شنبه", "چهارشنبه", "پنجشنبه", "جمعه"];
+const WEEK_SHORT = ["ش", "ی", "د", "س", "چ", "پ", "ج"];
+
+function loadHabits() {
+  try { return JSON.parse(localStorage.getItem(HABITS_KEY)) || []; }
+  catch { return []; }
+}
+function saveHabits() { localStorage.setItem(HABITS_KEY, JSON.stringify(habits)); }
+
+// کلید تاریخ محلی به شکل YYYY-MM-DD (بدون مشکل منطقه‌ی زمانی)
+function dateKey(d) {
+  const y = d.getFullYear();
+  const m = String(d.getMonth() + 1).padStart(2, "0");
+  const day = String(d.getDate()).padStart(2, "0");
+  return `${y}-${m}-${day}`;
+}
+
+// شنبه‌ی هفته‌ای که تاریخ در آن است (شروع هفته‌ی ایرانی)
+function saturdayOf(date) {
+  const d = new Date(date);
+  d.setHours(0, 0, 0, 0);
+  const offset = (d.getDay() + 1) % 7; // فاصله تا شنبه
+  d.setDate(d.getDate() - offset);
+  return d;
+}
+
+// ۷ تاریخ هفته‌ی جاری با توجه به weekOffset
+function weekDates() {
+  const base = new Date();
+  base.setDate(base.getDate() + weekOffset * 7);
+  const sat = saturdayOf(base);
+  return Array.from({ length: 7 }, (_, i) => {
+    const d = new Date(sat);
+    d.setDate(sat.getDate() + i);
+    return d;
+  });
+}
+
+// عدد روز به تقویم شمسی
+function faDay(d) {
+  try { return new Intl.DateTimeFormat("fa-IR", { day: "numeric" }).format(d); }
+  catch { return String(d.getDate()); }
+}
+function faRange(dates) {
+  try {
+    const fmt = new Intl.DateTimeFormat("fa-IR", { month: "long", day: "numeric" });
+    return `${fmt.format(dates[0])} تا ${fmt.format(dates[6])}`;
+  } catch { return ""; }
+}
+
+function addHabit(name) {
+  habits.push({ id: crypto.randomUUID(), name, log: {} });
+  saveHabits();
+  renderHabits();
+}
+function removeHabit(id) {
+  habits = habits.filter((h) => h.id !== id);
+  saveHabits();
+  renderHabits();
+}
+function toggleHabitDay(id, key) {
+  const h = habits.find((x) => x.id === id);
+  if (!h) return;
+  if (h.log[key]) delete h.log[key];
+  else h.log[key] = true;
+  saveHabits();
+  renderHabits();
+}
+
+function renderHabits() {
+  const dates = weekDates();
+  const keys = dates.map(dateKey);
+  const todayKey = dateKey(new Date());
+  weekLabel.textContent = faRange(dates);
+
+  habitTable.replaceChildren();
+  habitEmpty.style.display = habits.length === 0 ? "block" : "none";
+  if (habits.length === 0) return;
+
+  // سربرگ جدول
+  const thead = document.createElement("thead");
+  const hr = document.createElement("tr");
+  hr.appendChild(Object.assign(document.createElement("th"), { className: "habit-name-col", textContent: "عادت" }));
+  dates.forEach((d, i) => {
+    const th = document.createElement("th");
+    th.className = "day-col" + (keys[i] === todayKey ? " today" : "");
+    th.innerHTML = `<span class="dow">${WEEK_SHORT[i]}</span><span class="dom">${faDay(d)}</span>`;
+    th.title = WEEK_DAYS[i];
+    hr.appendChild(th);
+  });
+  hr.appendChild(Object.assign(document.createElement("th"), { className: "count-col", textContent: "✓" }));
+  thead.appendChild(hr);
+  habitTable.appendChild(thead);
+
+  // بدنه
+  const tbody = document.createElement("tbody");
+  habits.forEach((h) => {
+    const tr = document.createElement("tr");
+
+    // نام عادت + دکمه حذف
+    const nameTd = document.createElement("td");
+    nameTd.className = "habit-name";
+    const nameSpan = document.createElement("span");
+    nameSpan.textContent = h.name;
+    const del = document.createElement("button");
+    del.className = "habit-del";
+    del.innerHTML = '<i class="fa-solid fa-trash"></i>';
+    del.title = "حذف عادت";
+    del.addEventListener("click", () => removeHabit(h.id));
+    nameTd.append(del, nameSpan);
+    tr.appendChild(nameTd);
+
+    // سلول‌های روز
+    let count = 0;
+    keys.forEach((k, i) => {
+      const td = document.createElement("td");
+      td.className = "day-cell" + (k === todayKey ? " today" : "");
+      const done = !!h.log[k];
+      if (done) count++;
+      const dot = document.createElement("button");
+      dot.className = "day-dot" + (done ? " on" : "");
+      dot.innerHTML = done ? '<i class="fa-solid fa-check"></i>' : "";
+      dot.setAttribute("aria-label", WEEK_DAYS[i]);
+      dot.addEventListener("click", () => toggleHabitDay(h.id, k));
+      td.appendChild(dot);
+      tr.appendChild(td);
+    });
+
+    // شمارش هفته
+    const countTd = document.createElement("td");
+    countTd.className = "habit-count";
+    countTd.textContent = `${toFa(count)}/۷`;
+    tr.appendChild(countTd);
+
+    tbody.appendChild(tr);
+  });
+  habitTable.appendChild(tbody);
+}
+
+// فرم افزودن عادت
+habitForm.addEventListener("submit", (e) => {
+  e.preventDefault();
+  const v = habitInput.value.trim();
+  if (!v) return;
+  addHabit(v);
+  habitInput.value = "";
+  habitInput.focus();
+});
+
+// ناوبری هفته
+document.querySelector("#prev-week").addEventListener("click", () => { weekOffset--; renderHabits(); });
+document.querySelector("#next-week").addEventListener("click", () => { weekOffset++; renderHabits(); });
+document.querySelector("#this-week").addEventListener("click", () => { weekOffset = 0; renderHabits(); });
 
 // --- شروع ---
 buildTabs();
