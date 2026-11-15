@@ -1,123 +1,207 @@
-*{
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-
+* {
+  font-family: 'Vazirmatn', -apple-system, BlinkMacSystemFont, 'Segoe UI', Tahoma, sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-.remove-btn{
-    cursor: pointer;
-    color: red;
-    float:left ;
+body {
+  background: linear-gradient(160deg, #e7edf7 0%, #d4def0 100%);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 40px 16px;
+  color: #2c3550;
 }
 
-body{
-    background-color: #dee4ee;
-    /* background-image: url(20781338-cork-board-yellow-background-writing-that-post-.webp); */
-    background-attachment: fixed;
-    background-size: cover;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
+#content { width: 100%; max-width: 560px; }
+
+/* ===== سربرگ ===== */
+.app-head { text-align: center; margin-bottom: 22px; }
+.app-head h1 { font-size: 28px; color: #2c3550; }
+.subtitle { color: #7985a3; margin-top: 6px; font-size: 14px; }
+
+/* ===== کارت اصلی ===== */
+.card {
+  background: #fff;
+  border-radius: 18px;
+  padding: 22px;
+  box-shadow: 0 18px 50px rgba(44, 53, 80, 0.14);
 }
 
+/* ===== فرم افزودن ===== */
+.add-form { display: flex; gap: 10px; }
+.add-form input {
+  flex: 1;
+  padding: 14px 16px;
+  font-size: 15px;
+  border: 2px solid #e3e8f2;
+  border-radius: 12px;
+  outline: none;
+  transition: border-color 0.2s;
+  background: #f8faff;
+}
+.add-form input:focus { border-color: #6c8cff; }
+#add-btn {
+  padding: 0 20px;
+  font-size: 15px;
+  font-weight: 600;
+  color: #fff;
+  background: #6c8cff;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.2s, transform 0.1s;
+}
+#add-btn:hover { background: #5577f5; }
+#add-btn:active { transform: scale(0.97); }
 
+/* ===== نوار ابزار ===== */
+.toolbar {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 18px 2px 10px;
+  font-size: 13px;
+}
+.counter { color: #7985a3; font-weight: 600; }
+.filters { display: flex; gap: 4px; margin-inline-start: auto; }
+.filter {
+  border: none;
+  background: #eef2fb;
+  color: #5a678f;
+  padding: 6px 12px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 13px;
+  transition: all 0.15s;
+}
+.filter:hover { background: #e0e7f7; }
+.filter.active { background: #6c8cff; color: #fff; }
+.clear-btn {
+  border: none;
+  background: transparent;
+  color: #d06060;
+  cursor: pointer;
+  font-size: 13px;
+}
+.clear-btn:disabled { color: #c3cadb; cursor: default; }
 
-ul{
-    display:inline-block;
-    position: relative;
-    transform: skewY(-15deg);
+/* ===== لیست یادداشت‌ها ===== */
+.note-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+
+.note-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 14px;
+  background: #f8faff;
+  border: 1px solid #eef2fb;
+  border-radius: 12px;
+  transition: background 0.15s, opacity 0.15s;
+}
+.note-item:hover { background: #eef3ff; }
+
+.check {
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-size: 20px;
+  color: #b7c0d8;
+  line-height: 1;
+}
+.note-item.done .check { color: #43c08a; }
+
+.note-body { flex: 1; display: flex; flex-direction: column; min-width: 0; }
+.note-text { word-break: break-word; }
+.note-time { color: #9aa3bd; font-size: 11px; margin-top: 3px; }
+
+.note-item.done .note-text {
+  text-decoration: line-through;
+  color: #a7afc6;
 }
 
-ul li{
-    position: relative;
-    list-style: none;
-    width: 120px;
-    background:  #ffe6cc;
-    padding: 15px;
-    transition: 0.5s;
-    z-index: calc(1 * var(--i));
+.edit-input {
+  width: 100%;
+  padding: 6px 8px;
+  border: 2px solid #6c8cff;
+  border-radius: 8px;
+  outline: none;
+  font-size: 15px;
 }
 
-ul li:hover{
-    transform: translateX(-50px);
-    background: var(--clr);
+.icon-btn {
+  border: none;
+  background: none;
+  cursor: pointer;
+  color: #aab3cc;
+  font-size: 15px;
+  padding: 6px;
+  border-radius: 8px;
+  transition: color 0.15s, background 0.15s;
+}
+.icon-btn:hover { background: #e7ecf8; }
+.icon-btn.edit:hover { color: #6c8cff; }
+.icon-btn.remove-btn:hover { color: #e35b5b; }
+
+.empty-state {
+  text-align: center;
+  color: #9aa3bd;
+  padding: 24px 10px;
+  font-size: 14px;
 }
 
-ul li::before{
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -40px;
-    width: 40px;
-    height: 100%;
-    background: #ffe6cc;
-    filter: brightness(0.7);
-    transform-origin: right;
-    transform: skewY(45deg);
-    transition: 0.5s;
+/* ===== منوی سه‌بعدی تزئینی (گوشه‌ی صفحه) ===== */
+.side-menu {
+  display: none;               /* روی موبایل مخفی */
+  position: fixed;
+  top: 50%;
+  left: 60px;
+  transform: translateY(-50%) skewY(-15deg);
+  list-style: none;
 }
+@media (min-width: 1100px) { .side-menu { display: inline-block; } }
 
-ul li:hover::before{
-    background: var(--clr);
-    filter: brightness(0.7);
+.side-menu li {
+  position: relative;
+  width: 130px;
+  background: #ffe6cc;
+  padding: 14px;
+  transition: 0.5s;
+  z-index: calc(1 * var(--i));
+  direction: ltr;
 }
-ul li::after{
-    content: '';
-    position: absolute;
-    top: -40px;
-    left: 0;
-    width: 100%;
-    height: 40px;
-    background:#ae8253 ;
-    filter: brightness(0.9);
-    transform-origin: bottom;
-    transform: skewX(45deg);
-    transition: 0.5s;
+.side-menu li:hover { transform: translateX(-46px); background: var(--clr); }
+.side-menu li::before {
+  content: '';
+  position: absolute; top: 0; left: -40px;
+  width: 40px; height: 100%;
+  background: #ffe6cc; filter: brightness(0.7);
+  transform-origin: right; transform: skewY(45deg); transition: 0.5s;
 }
-
-ul li:hover::after{
-    background: var(--clr);
-    filter: brightness(0.9);
+.side-menu li:hover::before { background: var(--clr); }
+.side-menu li::after {
+  content: '';
+  position: absolute; top: -40px; left: 0;
+  width: 100%; height: 40px;
+  background: #ae8253; filter: brightness(0.9);
+  transform-origin: bottom; transform: skewX(45deg); transition: 0.5s;
 }
-
-ul li a{
-    text-decoration: none;
-    color: #999;
-    display: block;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    transition: 0.5s;
-    
+.side-menu li:hover::after { background: var(--clr); }
+.side-menu li a {
+  text-decoration: none; color: #999; display: block;
+  text-transform: uppercase; letter-spacing: 0.05em; transition: 0.5s;
 }
-
-ul li:hover a{
-    color: #ae8253;
+.side-menu li:hover a { color: #ae8253; }
+.side-menu li span {
+  position: absolute; top: 0; left: -40px;
+  width: 40px; height: 100%;
+  filter: brightness(0.7);
+  transform-origin: right; transform: skewY(45deg); transition: 0.5s;
+  display: flex; justify-content: center; align-items: center;
+  opacity: 0.5; font-size: 1.1em;
 }
-
-ul li:last-child::after{
-    box-shadow: -120px 120px 20px rgba(0,0,0,25);
-}
-
-ul li span{
-    position:absolute ;
-    top: 0;
-    left: -40px;
-    width: 40px;
-    height: 100%;
-    filter: brightness(0.7);
-    transform-origin: right;
-    transform: skewY(45deg);
-    transition: 0.5s;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    opacity: 0.5;
-    font-size: 1.25em;
-}
-
-ul li:hover span{
-    opacity: 1;
-}
+.side-menu li:hover span { opacity: 1; }

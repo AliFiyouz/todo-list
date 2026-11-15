@@ -1,51 +1,57 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fa" dir="rtl">
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Sticky Note</title>
+    <title>دفترچه یادداشت</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" />
     <link rel="stylesheet" href="style.css">
   </head>
   <body>
     <div id="content">
       <div class="container">
-          <h1> دفترچه یادداشت با Local Storage</h1>
-          <h2>( حافظه مرورگر )</h2>
-          <h1>-------------------</h1>
-          <div class="row">
-              <div class="six columns">
-                  <h2>یادداشت های من</h2>
-                  <div id="note-list"></div>
-              </div>
-              <div class="six columns">
-                  <label for="note" id="label">یادداشت جدید بنویس:</label>
-                  <form action="#" id="form">
-                          <label for="note"></label>
-                          <textarea id="note" class="u-full-width" placeholder="یادداشت خود را اینجا بنویسید..."></textarea>
-                          <input type="submit" class="button u-full-width button-primary" value="ذخیره یادداشت">
-                  </form>
-              </div> <!--.six-->
-               <!--.six-->
-          </div>
-      </div>
-  </div> <!--#contenido-->
-      <ul>
-          <li style="--i:6;--clr:#ffbf80"><a href="Goal-Of-Week/index.html"><span><i class="fa-thin fa-1"></i></span>Goal Of Week</a>
-            </li>
-          <li style="--i:5;--clr:#ffb366"><a href="#"><span><i class="fa-thin fa-2"></i></span>Main Task</a>
-            </li> 
-          <li style="--i:4;--clr:#ffa64d"><a href="#"><span><i class="fa-thin fa-3"></i></span>Habit Control</a>
-            </li> 
-            <li style="--i:3;--clr:#ff9933"><a href="#"><span><i class="fa-thin fa-4"></i></span>Important</a>
-            </li> 
-            <li style="--i:2;--clr:#ff8c1a"><a href="#"><span><i class="fa-thin fa-5"></i></span>Joy Of Week</a>
-            </li> 
-            <li style="--i:1;--clr:#ff8000"><a href="#"><span><i class="fa-thin fa-6"></i></span> How To Improve?</a>
-            </li> 
+        <header class="app-head">
+          <h1>📒 دفترچه یادداشت</h1>
+          <p class="subtitle">ذخیره‌ی خودکار در حافظه‌ی مرورگر</p>
+        </header>
 
-      </ul>
+        <div class="card">
+          <!-- فرم افزودن -->
+          <form id="form" class="add-form" autocomplete="off">
+            <input type="text" id="note" placeholder="یادداشت جدید بنویس و Enter بزن..." />
+            <button type="submit" id="add-btn"><i class="fa-solid fa-plus"></i> افزودن</button>
+          </form>
+
+          <!-- نوار ابزار: شمارنده + فیلترها -->
+          <div class="toolbar">
+            <span id="counter" class="counter">۰ یادداشت</span>
+            <div class="filters">
+              <button class="filter active" data-filter="all">همه</button>
+              <button class="filter" data-filter="active">فعال</button>
+              <button class="filter" data-filter="done">انجام‌شده</button>
+            </div>
+            <button id="clear-done" class="clear-btn">پاک‌کردن انجام‌شده‌ها</button>
+          </div>
+
+          <!-- لیست یادداشت‌ها -->
+          <ul id="note-list" class="note-list"></ul>
+          <p id="empty-state" class="empty-state">هنوز یادداشتی نداری. اولین یادداشتت را بنویس! ✍️</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- منوی سه‌بعدی تزئینی -->
+    <ul class="side-menu">
+      <li style="--i:6;--clr:#ffbf80"><a href="Goal-Of-Week/index.html"><span><i class="fa-solid fa-bullseye"></i></span>Goal Of Week</a></li>
+      <li style="--i:5;--clr:#ffb366"><a href="#"><span><i class="fa-solid fa-list-check"></i></span>Main Task</a></li>
+      <li style="--i:4;--clr:#ffa64d"><a href="#"><span><i class="fa-solid fa-repeat"></i></span>Habit Control</a></li>
+      <li style="--i:3;--clr:#ff9933"><a href="#"><span><i class="fa-solid fa-star"></i></span>Important</a></li>
+      <li style="--i:2;--clr:#ff8c1a"><a href="#"><span><i class="fa-solid fa-face-smile"></i></span>Joy Of Week</a></li>
+      <li style="--i:1;--clr:#ff8000"><a href="#"><span><i class="fa-solid fa-arrow-trend-up"></i></span>How To Improve?</a></li>
+    </ul>
+
     <script src="script.js"></script>
   </body>
 </html>
