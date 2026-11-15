@@ -1,21 +1,45 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fa" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Goal-Of-Week</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>اهداف این هفته</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" />
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-    <div class="Container">
-        <div class="GoalOfWeek">
-            <input type="text" placeholder="Set Your Goal . . . ">
-            <input type="submit">
-            <span> Are You Fullfilled? </span>
-            <input type="checkbox" name="checkbox" id="checkboxGOW">
+  <div class="container">
+    <a href="../index.html" class="back"><i class="fa-solid fa-arrow-right"></i> بازگشت به یادداشت‌ها</a>
+
+    <header class="head">
+      <h1>🎯 اهداف این هفته</h1>
+      <p class="subtitle">هدف‌هایت را بنویس و با رسیدن به هرکدام تیک بزن</p>
+    </header>
+
+    <div class="card">
+      <!-- نوار پیشرفت -->
+      <div class="progress-wrap">
+        <div class="progress-info">
+          <span id="progress-label">۰٪ محقق شد</span>
+          <span id="progress-count" class="count">۰ از ۰</span>
         </div>
+        <div class="progress-bar"><div id="progress-fill" class="progress-fill"></div></div>
+      </div>
+
+      <!-- فرم افزودن هدف -->
+      <form id="goal-form" class="add-form" autocomplete="off">
+        <input type="text" id="goal-input" placeholder="یک هدف برای این هفته بنویس..." />
+        <button type="submit"><i class="fa-solid fa-plus"></i> افزودن</button>
+      </form>
+
+      <!-- لیست اهداف -->
+      <ul id="goal-list" class="goal-list"></ul>
+      <p id="empty" class="empty">هنوز هدفی ثبت نکرده‌ای. اولین هدف هفته را بنویس! 🚀</p>
     </div>
-    <script src="script.js"></script>
+  </div>
+
+  <script src="script.js"></script>
 </body>
 </html>
